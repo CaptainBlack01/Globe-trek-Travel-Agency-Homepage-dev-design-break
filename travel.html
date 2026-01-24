@@ -1,264 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Globe Trek</title>
-    <link rel="stylesheet" href="travel.css" />
-    <!-- Font Awesome for icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-  </head>
-  <body>
-    <div class="travel">
-      <header>
-        <h3 class="logo">
-          GlobeTrek <span><i class="fa-solid fa-plane-up"></i></span>
-        </h3>
 
-        <nav class="nav">
-          <button
-            class="hamburger"
-            aria-label="Toggle menu"
-            aria-expanded="false"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-          <ul class="nav-links">
-            <li><a href="#">Destinations</a></li>
-            <li><a href="#">Packages</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </nav>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Globe Trek - Your Next Adventure</title>
+  <link rel="stylesheet" href="travel.css" />
+  <script src="script.js" defer></script>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
 
-        <button class="book-now">Book Now</button>
-      </header>
-      <!-- main content -->
-      <div class="main">
+<body>
+  <div class="page-wrapper">
+    <header>
+      <div class="logo">
+        GlobeTrek <span><i class="fa-solid fa-plane-up"></i></span>
+      </div>
+
+      <nav class="nav">
+        <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="nav-links" id="primary-navigation">
+          <li><a href="#destinations">Destinations</a></li>
+          <li><a href="#packages">Packages</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <a href="ticket.html" class="book-now">Book Now</a>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Hero Section -->
+      <section class="hero" aria-label="Hero">
         <div class="content">
           <h1>Your Next Adventure Awaits</h1>
           <p>Discover destinations tailored just for you.</p>
           <div class="content-button">
-            <button class="explore-button">Explore Now</button>
-            <button class="view-button">View Packages</button>
-          </div>
-        </div>
-      </div>
-      <!-- destinations -->
-
-      <section class="destinations-section">
-        <h3>Featured Destinations</h3>
-
-        <div class="destination-cards">
-          <!-- hawaii -->
-          <div class="destination">
-            <div class="destination-image">
-              <img
-                src="https://images.unsplash.com/photo-1509610696553-9243c1e230f0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aGF3YWlpfGVufDB8fDB8fHww"
-                alt="hawaii"
-              />
-            </div>
-            <div class="destination-info">
-              <h4>Hawaii</h4>
-              <p>
-                Experience the tropical paradise with stunning beaches and
-                vibrant culture.
-              </p>
-              <button class="details">View Details</button>
-            </div>
-          </div>
-          <!-- Swiss Alps -->
-
-          <div class="destination">
-            <div class="destination-image">
-              <img
-                src="https://images.unsplash.com/photo-1527668752968-14dc70a27c95?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3dpc3MlMjBhbHBzfGVufDB8fDB8fHww"
-                alt="Swiss Alps"
-              />
-            </div>
-            <div class="destination-info">
-              <h4>Swiss Alps</h4>
-              <p>Enjoy breathtaking mountain views and world-class skiing.</p>
-              <button class="details">View Details</button>
-            </div>
-          </div>
-          <!-- Santorini -->
-
-          <div class="destination">
-            <div class="destination-image">
-              <img
-                src="https://images.unsplash.com/photo-1678266561093-324802646fb2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2FudG9yaW5pfGVufDB8fDB8fHww"
-                alt="Santorini"
-              />
-            </div>
-            <div class="destination-info">
-              <h4>Santorini</h4>
-              <p>
-                Explore the iconic white-washed buildings and stunning sunsets.
-              </p>
-              <button class="details">View Details</button>
-            </div>
+            <a href="#destinations" class="explore-button">Explore Now</a>
+            <a href="#packages" class="view-button">View Packages</a>
           </div>
         </div>
       </section>
 
-      <!-- testimonials -->
-      <section class="testimonials">
+      <!-- Destinations Section -->
+      <section id="destinations" class="destinations-section reveal">
+        <div class="section-divider">
+          <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <h2>Featured Destinations</h2>
+
+        <div class="destination-cards">
+          <!-- Dynamic Content -->
+        </div>
+      </section>
+
+      <!-- Testimonials Section -->
+      <section class="testimonials reveal" aria-labelledby="testimonials-title">
         <div class="container testimonials-inner">
-          <h3>What our travelers say</h3>
+          <h2 id="testimonials-title">What our travelers say</h2>
           <p class="testimonials-sub">
             Real stories from globe-trotters who explored the world with us
           </p>
 
           <div class="testimonials-grid">
-            <article class="testimonial-card">
+            <figure class="testimonial-card">
               <div class="avatar">
-                <img
-                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8QVZBVEFSfGVufDB8fDB8fHww"
-                  alt="Avatar of Anna"
-                />
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&auto=format&fit=crop&q=60"
+                  alt="Anna R." loading="lazy" />
               </div>
-              <div class="testimonial-content">
-                <p class="quote">
+              <figcaption class="testimonial-content">
+                <blockquote class="quote">
                   “GlobeTrek planned the perfect honeymoon for us — dreamy
                   sunsets in Santorini and flawless service from start to
                   finish.”
-                </p>
+                </blockquote>
                 <p class="author">— Anna R., San Francisco</p>
-                <div class="rating">
+                <div class="rating" aria-label="5 out of 5 stars">
                   <i class="fa-solid fa-star"></i>
                   <i class="fa-solid fa-star"></i>
                   <i class="fa-solid fa-star"></i>
                   <i class="fa-solid fa-star"></i>
                   <i class="fa-solid fa-star"></i>
                 </div>
-              </div>
-            </article>
+              </figcaption>
+            </figure>
 
-            <article class="testimonial-card">
+            <figure class="testimonial-card">
               <div class="avatar">
-                <img
-                  src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8QVZBVEFSfGVufDB8fDB8fHww"
-                  alt="Avatar of Marcus"
-                />
+                <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=200&auto=format&fit=crop&q=60"
+                  alt="Marcus L." loading="lazy" />
               </div>
-              <div class="testimonial-content">
-                <p class="quote">
+              <figcaption class="testimonial-content">
+                <blockquote class="quote">
                   “Amazing value and attention to detail. Our Swiss Alps trip
                   was organized perfectly — highly recommend GlobeTrek.”
-                </p>
+                </blockquote>
                 <p class="author">— Marcus L., London</p>
-                <div class="rating">
+                <div class="rating" aria-label="4.5 out of 5 stars">
                   <i class="fa-solid fa-star"></i>
                   <i class="fa-solid fa-star"></i>
                   <i class="fa-solid fa-star"></i>
                   <i class="fa-solid fa-star"></i>
                   <i class="fa-solid fa-star-half-stroke"></i>
                 </div>
-              </div>
-            </article>
+              </figcaption>
+            </figure>
 
-            <article class="testimonial-card">
+            <figure class="testimonial-card">
               <div class="avatar">
-                <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fEFWQVRBUnxlbnwwfHwwfHx8MA%3D%3D"
-                  alt="Avatar of Sofia"
-                />
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=60"
+                  alt="Sofia K." loading="lazy" />
               </div>
-              <div class="testimonial-content">
-                <p class="quote">
+              <figcaption class="testimonial-content">
+                <blockquote class="quote">
                   “Customer support was friendly and responsive. We saw more in
                   one week than we expected — unforgettable memories!”
-                </p>
+                </blockquote>
                 <p class="author">— Sofia K., Sydney</p>
-                <div class="rating">
+                <div class="rating" aria-label="5 out of 5 stars">
                   <i class="fa-solid fa-star"></i>
                   <i class="fa-solid fa-star"></i>
                   <i class="fa-solid fa-star"></i>
                   <i class="fa-solid fa-star"></i>
                   <i class="fa-solid fa-star"></i>
                 </div>
-              </div>
-            </article>
+              </figcaption>
+            </figure>
           </div>
         </div>
       </section>
-      <!-- why choose us -->
-      <section class="why-choose-globetrek">
-        <h3>Why Choose GlobeTrek</h3>
+
+      </section>
+
+      <!-- Packages Section -->
+      <section id="packages" class="packages-section reveal">
+        <div class="section-divider">
+          <i class="fa-solid fa-suitcase-rolling"></i>
+        </div>
+        <h2>Exclusive Packages</h2>
+        <div class="package-cards">
+          <!-- Dynamic Content -->
+        </div>
+      </section>
+
+      <!-- Why Choose Us -->
+      <section class="why-choose reveal" aria-labelledby="why-choose-title">
+        <h2 id="why-choose-title">Why Choose GlobeTrek</h2>
         <div class="choose-card">
           <div class="choose-item">
-            <i class="fa-solid fa-globe"></i>
-            <h4>Global Expertise</h4>
+            <i class="fa-solid fa-globe" aria-hidden="true"></i>
+            <h3>Global Expertise</h3>
             <p>Over 20 years of experience in worldwide travel planning.</p>
           </div>
           <div class="choose-item">
-            <i class="fa-solid fa-headset"></i>
-            <h4>24/7 Support</h4>
+            <i class="fa-solid fa-headset" aria-hidden="true"></i>
+            <h3>24/7 Support</h3>
             <p>We're here for you anytime, anywhere during your trip.</p>
           </div>
           <div class="choose-item">
-            <i class="fa-solid fa-thumbs-up"></i>
-            <h4>Trusted by Thousands</h4>
+            <i class="fa-solid fa-thumbs-up" aria-hidden="true"></i>
+            <h3>Trusted by Thousands</h3>
             <p>Join our community of satisfied travelers.</p>
           </div>
           <div class="choose-item">
-            <i class="fa-solid fa-wallet"></i>
-            <h4>Best Price Guarantee</h4>
+            <i class="fa-solid fa-wallet" aria-hidden="true"></i>
+            <h3>Best Price Guarantee</h3>
             <p>Competitive pricing without compromising quality.</p>
           </div>
         </div>
       </section>
-      <!-- footer -->
-      <footer>
-        <p>&copy; 2025 GlobeTrek. All rights reserved.</p>
-        <div class="social-icons">
-          <i class="fa-brands fa-facebook-f"></i>
-          <i class="fa-brands fa-twitter"></i>
-          <i class="fa-brands fa-instagram"></i>
-          <i class="fa-brands fa-linkedin-in"></i>
+
+
+      <!-- About Section -->
+      <section id="about" class="about-section reveal">
+        <div class="about-container">
+          <div class="about-content">
+            <h2>About GlobeTrek</h2>
+            <p>
+              GlobeTrek was founded in 2005 with a simple mission: to help people
+              experience the wonder of the world. We believe travel is the only
+              thing you buy that makes you richer.
+            </p>
+            <p>
+              Our team of expert travel planners has explored over 100 countries to
+              bring you the most authentic and unforgettable experiences.
+            </p>
+          </div>
+          <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&auto=format&fit=crop&q=60"
+              alt="Team planning travel" loading="lazy" />
+          </div>
         </div>
-      </footer>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="contact-section reveal">
+        <div class="section-divider">
+          <i class="fa-solid fa-plane-up"></i>
+        </div>
+        <h2>Contact Us</h2>
+        <div class="contact-container">
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <input type="text" placeholder="Your Name" required />
+            </div>
+            <div class="form-group">
+              <input type="email" placeholder="Your Email" required />
+            </div>
+            <div class="form-group">
+              <textarea rows="5" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+          </form>
+          <div class="contact-info">
+            <div class="info-item">
+              <i class="fa-solid fa-location-dot"></i>
+              <p>123 Travel Lane, Adventure City, AC 56789</p>
+            </div>
+            <div class="info-item">
+              <i class="fa-solid fa-phone"></i>
+              <p>+1 (555) 123-4567</p>
+            </div>
+            <div class="info-item">
+              <i class="fa-solid fa-envelope"></i>
+              <p>hello@globetrek.com</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal -->
+    <div id="detailsModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2 id="modalTitle">Destination Name</h2>
+        <img id="modalImage" src="" alt="Destination" />
+        <p id="modalDescription">Description goes here.</p>
+        <a href="ticket.html" class="book-now-modal">Book This Trip</a>
+      </div>
     </div>
-    <script>
-      (function () {
-        const btn = document.querySelector(".hamburger");
-        const nav = document.querySelector(".nav-links");
-        if (!btn || !nav) return;
 
-        const openMenu = () => {
-          btn.setAttribute("aria-expanded", "true");
-          nav.classList.add("open");
-          nav.querySelector("a")?.focus();
-        };
-        const closeMenu = () => {
-          btn.setAttribute("aria-expanded", "false");
-          nav.classList.remove("open");
-          btn.focus();
-        };
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 GlobeTrek. All rights reserved.</p>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+    </footer>
+  </div>
+</body>
 
-        btn.addEventListener("click", () => {
-          nav.classList.contains("open") ? closeMenu() : openMenu();
-        });
-
-        // close on Esc
-        document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape" && nav.classList.contains("open")) closeMenu();
-        });
-
-        // close on navigation
-        nav
-          .querySelectorAll("a")
-          .forEach((a) => a.addEventListener("click", closeMenu));
-      })();
-    </script>
-  </body>
 </html>
