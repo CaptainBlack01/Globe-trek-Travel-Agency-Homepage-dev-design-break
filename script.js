@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // --- Data & Rendering ---
   const destinationsData = [
     {
       id: 1,
+      slug: "hawaii",
       name: "Hawaii",
       description: "Experience the tropical paradise with stunning beaches and vibrant culture.",
       image: "https://images.unsplash.com/photo-1509610696553-9243c1e230f0?w=500&auto=format&fit=crop&q=60",
@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       id: 2,
+      slug: "swiss-alps",
       name: "Swiss Alps",
       description: "Enjoy breathtaking mountain views and world-class skiing.",
       image: "https://images.unsplash.com/photo-1527668752968-14dc70a27c95?w=500&auto=format&fit=crop&q=60",
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       id: 3,
+      slug: "santorini",
       name: "Santorini",
       description: "Explore the iconic white-washed buildings and stunning sunsets.",
       image: "https://images.unsplash.com/photo-1678266561093-324802646fb2?w=500&auto=format&fit=crop&q=60",
@@ -28,12 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       name: "Honeymoon Special",
       price: "$1,299",
+      destination: "santorini",
       features: ["5 Days in Santorini", "Private Villa", "Romantic Dinner", "Island Tour"],
       featured: false
     },
     {
       name: "Adventure Rush",
       price: "$1,899",
+      destination: "swiss-alps",
       features: ["7 Days in Swiss Alps", "Skiing Equipment", "Mountain Guide", "Luxury Cabin"],
       featured: true,
       tag: "Most Popular"
@@ -41,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       name: "Tropical Escape",
       price: "$999",
+      destination: "hawaii",
       features: ["5 Days in Hawaii", "Surfing Lessons", "Breakfast Included", "Beachfront Hotel"],
       featured: false
     }
@@ -52,15 +57,16 @@ document.addEventListener('DOMContentLoaded', () => {
     container.innerHTML = destinationsData.map(dest => `
       <article class="destination-card reveal">
         <div class="destination-image">
-          <img src="${dest.image}" alt="${dest.name}" loading="lazy" />
+          <img src="${dest.image}" alt="${dest.name}" loading="lazy" width="500" height="200" />
         </div>
         <div class="destination-info">
           <h3>${dest.name}</h3>
           <p>${dest.description}</p>
-          <button class="details" 
+          <button type="button" class="details"
             data-title="${dest.name}"
             data-image="${dest.image}"
-            data-description="${dest.details}">
+            data-description="${dest.details}"
+            data-slug="${dest.slug}">
             View Details
           </button>
         </div>
@@ -79,9 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
           <p class="price">${pkg.price}</p>
         </div>
         <ul class="package-features">
-          ${pkg.features.map(feat => `<li><i class="fa-solid fa-check"></i> ${feat}</li>`).join('')}
+          ${pkg.features.map(feat => `<li><i class="fa-solid fa-check" aria-hidden="true"></i> ${feat}</li>`).join('')}
         </ul>
-        <a href="ticket.html" class="book-package-btn">Book Package</a>
+        <a href="ticket.html?destination=${pkg.destination}" class="book-package-btn">Book Package</a>
       </div>
     `).join('');
   };
@@ -89,67 +95,84 @@ document.addEventListener('DOMContentLoaded', () => {
   renderDestinations();
   renderPackages();
 
-  // Re-observe new elements for animation
-  setTimeout(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  const observeReveals = () => {
+    document.querySelectorAll('.reveal:not(.active)').forEach(el => revealObserver.observe(el));
+  };
+  observeReveals();
 
-    // Re-attach modal listeners
-    attachModalListeners();
-  }, 100);
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
 
-
-  // --- Navigation Logic ---
-  const btn = document.querySelector('.hamburger');
-  const nav = document.querySelector('.nav-links');
-
-  if (btn && nav) {
+  if (hamburger && navLinks) {
     const openMenu = () => {
-      btn.setAttribute('aria-expanded', 'true');
-      nav.classList.add('open');
-      const firstLink = nav.querySelector('a');
+      hamburger.setAttribute('aria-expanded', 'true');
+      navLinks.classList.add('open');
+      const firstLink = navLinks.querySelector('a');
       if (firstLink) firstLink.focus();
     };
 
     const closeMenu = () => {
-      btn.setAttribute('aria-expanded', 'false');
-      nav.classList.remove('open');
-      btn.focus();
+      hamburger.setAttribute('aria-expanded', 'false');
+      navLinks.classList.remove('open');
+      hamburger.focus();
     };
 
-    btn.addEventListener('click', () => {
-      const isOpen = nav.classList.contains('open');
-      isOpen ? closeMenu() : openMenu();
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.contains('open') ? closeMenu() : openMenu();
     });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && nav.classList.contains('open')) {
+      if (e.key === 'Escape' && navLinks.classList.contains('open')) {
         closeMenu();
       }
     });
 
-    nav.querySelectorAll('a').forEach((link) => {
+    navLinks.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', closeMenu);
     });
 
     document.addEventListener('click', (e) => {
-      if (nav.classList.contains('open') &&
-        !nav.contains(e.target) &&
-        !btn.contains(e.target)) {
+      if (navLinks.classList.contains('open') &&
+        !navLinks.contains(e.target) &&
+        !hamburger.contains(e.target)) {
         closeMenu();
       }
     });
   }
 
-  // --- Ticket Form Validation Logic ---
+  const scrollTargets = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+  const sections = scrollTargets
+    .map(link => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
+
+  if (sections.length > 0) {
+    const spyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        scrollTargets.forEach(link => {
+          const isActive = link.getAttribute('href') === `#${entry.target.id}`;
+          link.classList.toggle('active', isActive);
+          if (isActive) {
+            link.setAttribute('aria-current', 'location');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      });
+    }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+
+    sections.forEach(section => spyObserver.observe(section));
+  }
+
   const ticketForm = document.getElementById('ticketForm');
 
   if (ticketForm) {
@@ -160,29 +183,31 @@ document.addEventListener('DOMContentLoaded', () => {
       date: document.getElementById('date'),
       tickets: document.getElementById('tickets')
     };
+    const ticketStatus = document.getElementById('ticketStatus');
 
-    // Helper: Reset field status
     const resetField = (input) => {
       const group = input.closest('.form-group');
       if (group) group.classList.remove('invalid', 'valid');
       input.classList.remove('error', 'success');
     };
 
-    // Helper: Mark field invalid
     const setInvalid = (input) => {
       const group = input.closest('.form-group');
       if (group) group.classList.add('invalid');
       input.classList.add('error');
+      input.classList.remove('success');
     };
 
-    // Helper: Mark field valid
     const setValid = (input) => {
       const group = input.closest('.form-group');
-      if (group) group.classList.remove('invalid');
+      if (group) {
+        group.classList.remove('invalid');
+        group.classList.add('valid');
+      }
       input.classList.add('success');
+      input.classList.remove('error');
     };
 
-    // Validators
     const validators = {
       fullName: (value) => value.trim().length > 3,
       email: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
@@ -194,24 +219,25 @@ document.addEventListener('DOMContentLoaded', () => {
         today.setHours(0, 0, 0, 0);
         return selectedDate >= today;
       },
-      tickets: (value) => value >= 1 && value <= 10
+      tickets: (value) => Number(value) >= 1 && Number(value) <= 10
     };
 
-    // Real-time validation handler
+    const today = new Date();
+    const todayIso = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    if (inputs.date) inputs.date.min = todayIso;
+
+    const validateInput = (input) => {
+      const validator = validators[input.name];
+      if (!validator) return false;
+      return validator(input.value);
+    };
+
     const handleInput = (e) => {
       const input = e.target;
-      const name = input.name;
-
       resetField(input);
-
-      if (validators[name] && validators[name](input.value)) {
-        setValid(input);
-      } else {
-        setInvalid(input);
-      }
+      validateInput(input) ? setValid(input) : setInvalid(input);
     };
 
-    // Attach listeners
     Object.values(inputs).forEach(input => {
       if (input) {
         input.addEventListener('input', handleInput);
@@ -219,13 +245,22 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Form Submission
+    const params = new URLSearchParams(window.location.search);
+    const preselected = params.get('destination');
+    if (preselected && inputs.destination) {
+      const hasOption = Array.from(inputs.destination.options).some(option => option.value === preselected);
+      if (hasOption) {
+        inputs.destination.value = preselected;
+        setValid(inputs.destination);
+      }
+    }
+
     ticketForm.addEventListener('submit', (e) => {
       e.preventDefault();
       let isValid = true;
 
-      // Validate all fields on submit
       Object.entries(inputs).forEach(([name, input]) => {
+        if (!input) return;
         if (!validators[name](input.value)) {
           setInvalid(input);
           isValid = false;
@@ -234,104 +269,126 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      if (isValid) {
-        alert('Booking confirmed!\nThank you for choosing GlobeTrek.');
-        ticketForm.reset();
-        Object.values(inputs).forEach(input => {
-          input.classList.remove('success');
-        });
+      if (!isValid) {
+        if (ticketStatus) {
+          ticketStatus.textContent = 'Please fix the highlighted fields and try again.';
+          ticketStatus.classList.add('error');
+        }
+        return;
+      }
+
+      if (ticketStatus) {
+        ticketStatus.textContent = 'Booking confirmed! Thank you for choosing GlobeTrek.';
+        ticketStatus.classList.remove('error');
+      }
+      alert('Booking confirmed!\nThank you for choosing GlobeTrek.');
+      ticketForm.reset();
+      Object.values(inputs).forEach(input => {
+        if (!input) return;
+        input.classList.remove('success', 'error');
+        const group = input.closest('.form-group');
+        if (group) group.classList.remove('valid', 'invalid');
+      });
+      if (inputs.tickets) inputs.tickets.value = '1';
+    });
+  }
+
+  const modal = document.getElementById('detailsModal');
+
+  if (modal) {
+    const modalContent = modal.querySelector('.modal-content');
+    const closeModalButton = modal.querySelector('.close-modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalImage = document.getElementById('modalImage');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalBookLink = modal.querySelector('.book-now-modal');
+    const focusableSelector = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    let lastFocused = null;
+
+    const closeModal = () => {
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocused) lastFocused.focus();
+    };
+
+    const openModal = (trigger) => {
+      lastFocused = trigger;
+      const title = trigger.getAttribute('data-title');
+      const image = trigger.getAttribute('data-image');
+      const description = trigger.getAttribute('data-description');
+      const slug = trigger.getAttribute('data-slug');
+
+      if (modalTitle) modalTitle.textContent = title || '';
+      if (modalImage) {
+        modalImage.src = image || '';
+        modalImage.alt = title || '';
+      }
+      if (modalDescription) modalDescription.textContent = description || '';
+      if (modalBookLink) {
+        modalBookLink.href = slug ? `ticket.html?destination=${slug}` : 'ticket.html';
+      }
+
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      if (closeModalButton) closeModalButton.focus();
+    };
+
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('.details');
+      if (trigger) openModal(trigger);
+    });
+
+    if (closeModalButton) closeModalButton.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!modal.classList.contains('show')) return;
+
+      if (e.key === 'Escape') {
+        closeModal();
+        return;
+      }
+
+      if (e.key === 'Tab' && modalContent) {
+        const focusable = Array.from(modalContent.querySelectorAll(focusableSelector))
+          .filter(el => el.offsetParent !== null);
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     });
   }
 
-  // --- Modal Logic ---
-  const attachModalListeners = () => {
-    const modal = document.getElementById('detailsModal');
-    const detailsButtons = document.querySelectorAll('.details');
-    const closeModal = document.querySelector('.close-modal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalImage = document.getElementById('modalImage');
-    const modalDescription = document.getElementById('modalDescription');
-
-    if (modal && detailsButtons.length > 0) {
-      // Open Modal
-      detailsButtons.forEach(btn => {
-        // Remove old listeners to prevent duplicates (simple approach)
-        const newBtn = btn.cloneNode(true);
-        btn.parentNode.replaceChild(newBtn, btn);
-
-        newBtn.addEventListener('click', (e) => {
-          const title = newBtn.getAttribute('data-title');
-          const image = newBtn.getAttribute('data-image');
-          const description = newBtn.getAttribute('data-description');
-
-          if (title) modalTitle.textContent = title;
-          if (image) modalImage.src = image;
-          if (description) modalDescription.textContent = description;
-
-          modal.classList.add('show');
-          document.body.style.overflow = 'hidden'; // Disable scroll
-        });
-      });
-
-      // Close Modal Function
-      const closeModalFunc = () => {
-        modal.classList.remove('show');
-        document.body.style.overflow = 'auto'; // Enable scroll
-      };
-
-      if (closeModal) { // Ensure listener isn't added multiple times in a real app, but here it's okay inside the scope check if careful
-        // For safety, we can just rely on the existing static listeners for close buttons if they are outside the dynamic content
-      }
-    }
-  };
-
-  // Static Modal Listeners (Close, click outside)
-  const modal = document.getElementById('detailsModal');
-  const closeModal = document.querySelector('.close-modal');
-  if (modal) {
-    const closeModalFunc = () => {
-      modal.classList.remove('show');
-      document.body.style.overflow = 'auto';
-    };
-
-    if (closeModal) closeModal.addEventListener('click', closeModalFunc);
-    window.addEventListener('click', (e) => { if (e.target === modal) closeModalFunc(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModalFunc(); });
-  }
-
-
-
-
-  // --- Contact Form Logic ---
   const contactForm = document.getElementById('contactForm');
+
   if (contactForm) {
+    const contactStatus = document.getElementById('contactStatus');
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      if (contactStatus) {
+        contactStatus.textContent = 'Message sent! We will get back to you shortly.';
+        contactStatus.classList.remove('error');
+      }
       alert('Message Sent!\nWe will get back to you shortly.');
       contactForm.reset();
     });
   }
-  // --- Scroll Animations ---
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px"
-  };
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-        observer.unobserve(entry.target); // Animate only once
-      }
-    });
-  }, observerOptions);
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  // --- Dynamic Year ---
   const footerYear = document.querySelector('footer p');
   if (footerYear) {
-    const currentYear = new Date().getFullYear();
-    footerYear.innerHTML = `&copy; ${currentYear} GlobeTrek. All rights reserved.`;
+    footerYear.innerHTML = `&copy; ${new Date().getFullYear()} GlobeTrek. All rights reserved.`;
   }
 });

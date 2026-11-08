@@ -5,25 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Your Trip - GlobeTrek</title>
+    <meta name="description"
+        content="Reserve your GlobeTrek adventure. Choose a destination, travel date, and number of tickets to complete your booking." />
+    <meta name="theme-color" content="#006D77">
+    <link rel="icon" href="globe.jpeg" type="image/jpeg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="travel.css">
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 
 <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
     <div class="page-wrapper">
         <header>
             <div class="logo">
-                GlobeTrek <span><i class="fa-solid fa-plane-up"></i></span>
+                GlobeTrek <span><i class="fa-solid fa-plane-up" aria-hidden="true"></i></span>
             </div>
-            <nav class="nav">
-                <a href="travel.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+            <nav class="nav" aria-label="Primary">
+                <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to
+                    Home</a>
             </nav>
         </header>
 
-        <main>
+        <main id="main-content">
             <div class="booking-container">
                 <div class="booking-header">
                     <h1>Complete Your Booking</h1>
@@ -33,13 +46,15 @@
                 <form id="ticketForm" novalidate>
                     <div class="form-group">
                         <label for="fullName">Full Name</label>
-                        <input type="text" id="fullName" name="fullName" placeholder="John Doe" required>
+                        <input type="text" id="fullName" name="fullName" placeholder="John Doe" autocomplete="name"
+                            required>
                         <span class="error-message">Please enter your full name.</span>
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                        <input type="email" id="email" name="email" placeholder="john@example.com" autocomplete="email"
+                            required>
                         <span class="error-message">Please enter a valid email address.</span>
                     </div>
 
@@ -67,6 +82,7 @@
                     </div>
 
                     <button type="submit" class="submit-btn" id="submitBtn">Confirm Booking</button>
+                    <p id="ticketStatus" class="form-status" role="status" aria-live="polite"></p>
                 </form>
             </div>
         </main>
