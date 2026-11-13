@@ -2,59 +2,67 @@ document.addEventListener('DOMContentLoaded', () => {
   const destinationsData = [
     {
       id: 1,
-      slug: "hawaii",
-      name: "Hawaii",
-      description: "Experience the tropical paradise with stunning beaches and vibrant culture.",
-      image: "https://images.unsplash.com/photo-1509610696553-9243c1e230f0?w=500&auto=format&fit=crop&q=60",
-      details: "Experience the tropical paradise of Hawaii. From surfing in the Pacific to hiking volcanic craters, this destination offers a perfect blend of adventure and relaxation. Enjoy traditional luaus and vibrant nightlife."
+      slug: 'hawaii',
+      name: 'Hawaii',
+      description: 'Experience the tropical paradise with stunning beaches and vibrant culture.',
+      image:
+        'https://images.unsplash.com/photo-1509610696553-9243c1e230f0?w=500&auto=format&fit=crop&q=60',
+      details:
+        'Experience the tropical paradise of Hawaii. From surfing in the Pacific to hiking volcanic craters, this destination offers a perfect blend of adventure and relaxation. Enjoy traditional luaus and vibrant nightlife.',
     },
     {
       id: 2,
-      slug: "swiss-alps",
-      name: "Swiss Alps",
-      description: "Enjoy breathtaking mountain views and world-class skiing.",
-      image: "https://images.unsplash.com/photo-1527668752968-14dc70a27c95?w=500&auto=format&fit=crop&q=60",
-      details: "The Swiss Alps offer breathtaking mountain scenery and world-class skiing. Whether you're hitting the slopes or enjoying a cozy fondue in a chalet, it's an unforgettable winter wonderland."
+      slug: 'swiss-alps',
+      name: 'Swiss Alps',
+      description: 'Enjoy breathtaking mountain views and world-class skiing.',
+      image:
+        'https://images.unsplash.com/photo-1527668752968-14dc70a27c95?w=500&auto=format&fit=crop&q=60',
+      details:
+        "The Swiss Alps offer breathtaking mountain scenery and world-class skiing. Whether you're hitting the slopes or enjoying a cozy fondue in a chalet, it's an unforgettable winter wonderland.",
     },
     {
       id: 3,
-      slug: "santorini",
-      name: "Santorini",
-      description: "Explore the iconic white-washed buildings and stunning sunsets.",
-      image: "https://images.unsplash.com/photo-1678266561093-324802646fb2?w=500&auto=format&fit=crop&q=60",
-      details: "Santorini is famous for its stunning sunsets and white-washed buildings. Explore clear blue waters, ancient ruins, and delicious Greek cuisine in this romantic getaway."
-    }
+      slug: 'santorini',
+      name: 'Santorini',
+      description: 'Explore the iconic white-washed buildings and stunning sunsets.',
+      image:
+        'https://images.unsplash.com/photo-1678266561093-324802646fb2?w=500&auto=format&fit=crop&q=60',
+      details:
+        'Santorini is famous for its stunning sunsets and white-washed buildings. Explore clear blue waters, ancient ruins, and delicious Greek cuisine in this romantic getaway.',
+    },
   ];
 
   const packagesData = [
     {
-      name: "Honeymoon Special",
-      price: "$1,299",
-      destination: "santorini",
-      features: ["5 Days in Santorini", "Private Villa", "Romantic Dinner", "Island Tour"],
-      featured: false
+      name: 'Honeymoon Special',
+      price: '$1,299',
+      destination: 'santorini',
+      features: ['5 Days in Santorini', 'Private Villa', 'Romantic Dinner', 'Island Tour'],
+      featured: false,
     },
     {
-      name: "Adventure Rush",
-      price: "$1,899",
-      destination: "swiss-alps",
-      features: ["7 Days in Swiss Alps", "Skiing Equipment", "Mountain Guide", "Luxury Cabin"],
+      name: 'Adventure Rush',
+      price: '$1,899',
+      destination: 'swiss-alps',
+      features: ['7 Days in Swiss Alps', 'Skiing Equipment', 'Mountain Guide', 'Luxury Cabin'],
       featured: true,
-      tag: "Most Popular"
+      tag: 'Most Popular',
     },
     {
-      name: "Tropical Escape",
-      price: "$999",
-      destination: "hawaii",
-      features: ["5 Days in Hawaii", "Surfing Lessons", "Breakfast Included", "Beachfront Hotel"],
-      featured: false
-    }
+      name: 'Tropical Escape',
+      price: '$999',
+      destination: 'hawaii',
+      features: ['5 Days in Hawaii', 'Surfing Lessons', 'Breakfast Included', 'Beachfront Hotel'],
+      featured: false,
+    },
   ];
 
   const renderDestinations = () => {
     const container = document.querySelector('.destination-cards');
     if (!container) return;
-    container.innerHTML = destinationsData.map(dest => `
+    container.innerHTML = destinationsData
+      .map(
+        (dest) => `
       <article class="destination-card reveal">
         <div class="destination-image">
           <img src="${dest.image}" alt="${dest.name}" loading="lazy" width="500" height="200" />
@@ -71,13 +79,17 @@ document.addEventListener('DOMContentLoaded', () => {
           </button>
         </div>
       </article>
-    `).join('');
+    `
+      )
+      .join('');
   };
 
   const renderPackages = () => {
     const container = document.querySelector('.package-cards');
     if (!container) return;
-    container.innerHTML = packagesData.map(pkg => `
+    container.innerHTML = packagesData
+      .map(
+        (pkg) => `
       <div class="package-card ${pkg.featured ? 'featured' : ''} reveal">
         ${pkg.featured ? `<div class="tag">${pkg.tag}</div>` : ''}
         <div class="package-header">
@@ -85,27 +97,32 @@ document.addEventListener('DOMContentLoaded', () => {
           <p class="price">${pkg.price}</p>
         </div>
         <ul class="package-features">
-          ${pkg.features.map(feat => `<li><i class="fa-solid fa-check" aria-hidden="true"></i> ${feat}</li>`).join('')}
+          ${pkg.features.map((feat) => `<li><i class="fa-solid fa-check" aria-hidden="true"></i> ${feat}</li>`).join('')}
         </ul>
         <a href="ticket.html?destination=${pkg.destination}" class="book-package-btn">Book Package</a>
       </div>
-    `).join('');
+    `
+      )
+      .join('');
   };
 
   renderDestinations();
   renderPackages();
 
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+  );
 
   const observeReveals = () => {
-    document.querySelectorAll('.reveal:not(.active)').forEach(el => revealObserver.observe(el));
+    document.querySelectorAll('.reveal:not(.active)').forEach((el) => revealObserver.observe(el));
   };
   observeReveals();
 
@@ -141,9 +158,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.addEventListener('click', (e) => {
-      if (navLinks.classList.contains('open') &&
+      if (
+        navLinks.classList.contains('open') &&
         !navLinks.contains(e.target) &&
-        !hamburger.contains(e.target)) {
+        !hamburger.contains(e.target)
+      ) {
         closeMenu();
       }
     });
@@ -151,26 +170,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const scrollTargets = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
   const sections = scrollTargets
-    .map(link => document.querySelector(link.getAttribute('href')))
+    .map((link) => document.querySelector(link.getAttribute('href')))
     .filter(Boolean);
 
   if (sections.length > 0) {
-    const spyObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        scrollTargets.forEach(link => {
-          const isActive = link.getAttribute('href') === `#${entry.target.id}`;
-          link.classList.toggle('active', isActive);
-          if (isActive) {
-            link.setAttribute('aria-current', 'location');
-          } else {
-            link.removeAttribute('aria-current');
-          }
+    const spyObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          scrollTargets.forEach((link) => {
+            const isActive = link.getAttribute('href') === `#${entry.target.id}`;
+            link.classList.toggle('active', isActive);
+            if (isActive) {
+              link.setAttribute('aria-current', 'location');
+            } else {
+              link.removeAttribute('aria-current');
+            }
+          });
         });
-      });
-    }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+      },
+      { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
+    );
 
-    sections.forEach(section => spyObserver.observe(section));
+    sections.forEach((section) => spyObserver.observe(section));
   }
 
   const ticketForm = document.getElementById('ticketForm');
@@ -181,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
       email: document.getElementById('email'),
       destination: document.getElementById('destination'),
       date: document.getElementById('date'),
-      tickets: document.getElementById('tickets')
+      tickets: document.getElementById('tickets'),
     };
     const ticketStatus = document.getElementById('ticketStatus');
 
@@ -189,6 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const group = input.closest('.form-group');
       if (group) group.classList.remove('invalid', 'valid');
       input.classList.remove('error', 'success');
+      input.removeAttribute('aria-invalid');
     };
 
     const setInvalid = (input) => {
@@ -196,6 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (group) group.classList.add('invalid');
       input.classList.add('error');
       input.classList.remove('success');
+      input.setAttribute('aria-invalid', 'true');
     };
 
     const setValid = (input) => {
@@ -206,12 +230,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       input.classList.add('success');
       input.classList.remove('error');
+      input.removeAttribute('aria-invalid');
     };
 
     const validators = {
       fullName: (value) => value.trim().length > 3,
       email: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
-      destination: (value) => value !== "",
+      destination: (value) => value !== '',
       date: (value) => {
         if (!value) return false;
         const selectedDate = new Date(value);
@@ -219,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
         today.setHours(0, 0, 0, 0);
         return selectedDate >= today;
       },
-      tickets: (value) => Number(value) >= 1 && Number(value) <= 10
+      tickets: (value) => Number(value) >= 1 && Number(value) <= 10,
     };
 
     const today = new Date();
@@ -238,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
       validateInput(input) ? setValid(input) : setInvalid(input);
     };
 
-    Object.values(inputs).forEach(input => {
+    Object.values(inputs).forEach((input) => {
       if (input) {
         input.addEventListener('input', handleInput);
         input.addEventListener('blur', handleInput);
@@ -248,7 +273,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
     const preselected = params.get('destination');
     if (preselected && inputs.destination) {
-      const hasOption = Array.from(inputs.destination.options).some(option => option.value === preselected);
+      const hasOption = Array.from(inputs.destination.options).some(
+        (option) => option.value === preselected
+      );
       if (hasOption) {
         inputs.destination.value = preselected;
         setValid(inputs.destination);
@@ -281,9 +308,8 @@ document.addEventListener('DOMContentLoaded', () => {
         ticketStatus.textContent = 'Booking confirmed! Thank you for choosing GlobeTrek.';
         ticketStatus.classList.remove('error');
       }
-      alert('Booking confirmed!\nThank you for choosing GlobeTrek.');
       ticketForm.reset();
-      Object.values(inputs).forEach(input => {
+      Object.values(inputs).forEach((input) => {
         if (!input) return;
         input.classList.remove('success', 'error');
         const group = input.closest('.form-group');
@@ -302,7 +328,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalImage = document.getElementById('modalImage');
     const modalDescription = document.getElementById('modalDescription');
     const modalBookLink = modal.querySelector('.book-now-modal');
-    const focusableSelector = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    const focusableSelector =
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
     let lastFocused = null;
 
     const closeModal = () => {
@@ -355,8 +382,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (e.key === 'Tab' && modalContent) {
-        const focusable = Array.from(modalContent.querySelectorAll(focusableSelector))
-          .filter(el => el.offsetParent !== null);
+        const focusable = Array.from(modalContent.querySelectorAll(focusableSelector)).filter(
+          (el) => el.offsetParent !== null
+        );
         if (focusable.length === 0) return;
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
@@ -376,13 +404,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (contactForm) {
     const contactStatus = document.getElementById('contactStatus');
+    const contactFields = Array.from(contactForm.querySelectorAll('input, textarea'));
+
+    contactFields.forEach((field) => {
+      field.addEventListener('input', () => field.removeAttribute('aria-invalid'));
+    });
+
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      const invalid = contactFields.filter(
+        (field) =>
+          !field.value.trim() ||
+          (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value))
+      );
+
+      contactFields.forEach((field) => field.removeAttribute('aria-invalid'));
+
+      if (invalid.length > 0) {
+        invalid.forEach((field) => field.setAttribute('aria-invalid', 'true'));
+        if (contactStatus) {
+          contactStatus.textContent = 'Please complete all fields with a valid email address.';
+          contactStatus.classList.add('error');
+        }
+        invalid[0].focus();
+        return;
+      }
+
       if (contactStatus) {
         contactStatus.textContent = 'Message sent! We will get back to you shortly.';
         contactStatus.classList.remove('error');
       }
-      alert('Message Sent!\nWe will get back to you shortly.');
       contactForm.reset();
     });
   }
